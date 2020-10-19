@@ -1,0 +1,95 @@
+<!--
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Mavo.io Collaborative Pixel Editor</title>
+
+        <!-- update the version number as needed -->
+        <script defer src="/__/firebase/7.24.0/firebase-app.js"></script>
+        <!-- include only the Firebase features as you need -->
+        <script defer src="/__/firebase/7.24.0/firebase-auth.js"></script>
+        <script defer src="/__/firebase/7.24.0/firebase-database.js"></script>
+        <script defer src="/__/firebase/7.24.0/firebase-messaging.js"></script>
+        <script defer src="/__/firebase/7.24.0/firebase-storage.js"></script>
+        <script defer src="/__/firebase/7.24.0/firebase-analytics.js"></script>
+        <script defer src="/__/firebase/7.24.0/firebase-remote-config.js"></script>
+        <script defer src="/__/firebase/7.24.0/firebase-performance.js"></script>
+        <!-- initialize the SDK after all desired features are loaded -->
+        <script defer src="/__/firebase/init.js"></script>
+
+
+        <!--- Mavo.io loading -->
+        <script src="https://get.mavo.io/stable/mavo.min.js"></script>
+        <link rel="stylesheet" href="https://get.mavo.io/stable/mavo.min.css"	>
+
+
+        <style>
+        .pixel{
+            border: 0.5px solid grey;
+            height:30px;
+            width:30px;
+        }
+        #chatWrapper {
+            border: 1px solid grey;
+        }
+        #pageWrapper {
+            display: flex;
+            gap: 1rem;
+        }
+        #allPixels {
+            display:grid;
+            grid-template-columns: repeat(16, 30px);
+            grid-template-rows: repeat(16, 30px);
+        }
+        #toolbar {
+            display: flex;
+            gap: 1rem;
+        }
+        </style>
+    </head>
+    <body>
+        <main
+            mv-app="mavogram"
+            mv-autosave
+            mv-plugins="firebase-firestore"
+            mv-storage="firebase://mavopixels"
+            mv-firebase-key="AIzaSyDz8uIn0MG548elQpbqGGLFgPxMK94SHoU"
+            mv-firebase="auth storage realtime">
+            <div id="toolbar">
+                <label>
+                    Select color:
+                    <input mv-storage="none" type="color" property="selectedColor"/>
+                </label>
+                <button mv-action="set(color, black)">reset</button>
+            </div>
+
+
+            <div id="pageWrapper">
+                <div id="allPixels"> 
+                    <div property="pixel" mv-multiple>
+                        <meta property="color" mv-default="blue">
+                        <div style="background-color: [color]" mv-action="set(color, selectedColor)" class="pixel"></div>
+                    </div>
+                </div>
+                <div id="chatWrapper">
+                    Global Chat:
+                    <div style="overflow: scroll; height: 420px; display:flex; flex-direction:column-reverse">
+                        <table >
+                            <tr property="chat" mv-multiple>
+                                <td property="chatItem"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <iframe name="doNothing" style="display:none;"></iframe>
+                    <form target="doNothing">
+                        <input mv-storage="none" type="text" property="chatText"/>
+                        <input mv-storage="none" type="submit" value="Submit" mv-action="add(chatText, chat); set(chatText, '')">
+                    </form>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
