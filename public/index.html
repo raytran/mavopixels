@@ -69,8 +69,9 @@
 
 
             <div id="pageWrapper">
+                <div class="mv-logged-out">Please log in to use the editor.</div>
                 <div id="allPixels"> 
-                    <div property="pixel" mv-multiple>
+                    <div class="mv-logged-in" property="pixel" mv-multiple>
                         <meta property="color" mv-default="blue">
                         <div style="background-color: [color]" mv-action="set(color, selectedColor)" class="pixel"></div>
                     </div>
@@ -79,10 +80,11 @@
                     Global Chat:
                     <div style="overflow: scroll; height: 420px; display:flex; flex-direction:column-reverse">
                         <table >
-                            <tr property="chat" mv-multiple>
+                            <tr class="mv-logged-in" property="chat" mv-multiple>
                                 <td property="chatItem"></td>
                             </tr>
                         </table>
+                        <div class="mv-logged-out">Please log in to use the chat.</div>
                     </div>
                     <iframe name="doNothing" style="display:none;"></iframe>
                     <form target="doNothing">
